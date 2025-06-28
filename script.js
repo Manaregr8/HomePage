@@ -44,3 +44,14 @@ document.querySelectorAll(".glitch-link").forEach(link => {
     observer.observe(section);
   });
 
+document.querySelectorAll('.youtube-placeholder').forEach(el => {
+    el.addEventListener('click', () => {
+      const videoId = el.dataset.id;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.className = 'youtube-iframe';
+      el.replaceWith(iframe);
+    });
+  });
