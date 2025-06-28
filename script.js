@@ -1,28 +1,26 @@
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-document.querySelectorAll("a").forEach(link => {
-  link.addEventListener("mouseover", event => {
-    let interactions = 0;
+document.querySelectorAll(".glitch-link").forEach(link => {
+  link.addEventListener("mouseenter", event => {
+    let iterations = 0;
+    const target = event.target;
+    const original = target.dataset.value;
 
     const interval = setInterval(() => {
-      event.target.innerText = event.target.innerText
+      target.innerText = original
         .split("")
         .map((letter, index) => {
-          if (index < interactions) {
-            return event.target.dataset.value[index];
-          }
+          if (index < iterations) return original[index];
           return letters[Math.floor(Math.random() * 26)];
         })
         .join("");
 
-      if (interactions > event.target.dataset.value.length) {
-        clearInterval(interval);
-      }
-
-      interactions += 1 / 5;
-    }, 30);
+      if (iterations >= original.length) clearInterval(interval);
+      iterations += 1 / 2; // Faster to reduce overall CPU load
+    }, 40); // Slightly increased interval
   });
 });
+
 
   const toggleBtn = document.getElementById('toggleCourses');
   const container = document.querySelector('.courseCardContainer');
@@ -46,12 +44,3 @@ document.querySelectorAll("a").forEach(link => {
     observer.observe(section);
   });
 
-    document.getElementById('formToggle').addEventListener('click', function(e) {
-        e.preventDefault();
-        const form = document.querySelector('.formContainer');
-        form.style.display = 'flex';
-    });
-document.getElementById('closeForm').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.querySelector('.formContainer').style.display = 'none';
-});
